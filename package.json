@@ -1,0 +1,25 @@
+{
+  "name": "securebank-dfa-system",
+  "version": "1.0.0",
+  "description": "SecureBank – Secure Online Banking System Using DFA (Integrating Web Dev, Computer Networks, and FLAT)",
+  "scripts": {
+    "server": "cd server && npm start",
+    "server:dev": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "test:api": "cd server && node test-api.js",
+    "build": "cd client && npm run build"
+  },
+  "keywords": [
+    "banking",
+    "dfa",
+    "automata-theory",
+    "computer-networks",
+    "full-stack",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "SecureBank Engineering Team",
+  "license": "ISC"
+}
