@@ -293,3 +293,48 @@ TEST 12: Refresh the application (Database Data Persistence)
 - `client/src/components/TransactionDfaVisualizer.jsx`: Animated SVG graph of canonical 3-state transaction DFA.
 - `client/src/components/Sidebar.jsx`: Full banking navigation (Dashboard, Balance Enquiry, Fund Transfer, Transaction History, DFA Monitor, Logout).
 - `client/src/utils/formatters.js`: Indian Rupee currency standard formatting using `Intl.NumberFormat('en-IN')`.
+
+---
+
+## 🚀 Deployment Guide
+
+### 1. Database (MongoDB Atlas)
+1. Sign in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Create a free **M0 Shared Cluster**.
+3. Under **Database Access**, create a user (e.g. `securebank_user`) with read/write privileges.
+4. Under **Network Access**, add IP address `0.0.0.0/0` (Allow Access from Anywhere) to permit Render backend connections.
+5. In **Database** -> **Connect** -> **Connect your application**, copy the connection string:
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/securebank?retryWrites=true&w=majority
+   ```
+
+### 2. Backend (Render.com)
+1. Sign in to [Render](https://render.com) and click **New +** -> **Web Service**.
+2. Connect your GitHub repository `https://github.com/Priya1234232/secureBank.git`.
+3. Configure the Web Service settings:
+   - **Name**: `securebank-backend`
+   - **Root Directory**: `server`
+   - **Environment**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `node index.js`
+4. In **Environment Variables**, add:
+   - `NODE_ENV`: `production`
+   - `PORT`: `5000`
+   - `MONGODB_URI`: `<Your MongoDB Atlas connection string>`
+   - `JWT_SECRET`: `<A strong random secret, e.g. securebank_jwt_prod_key_987654321>`
+   - `CLIENT_URL`: `https://your-frontend-app.vercel.app` (or `*` during initial testing)
+5. Click **Create Web Service**. Note your backend URL (e.g. `https://securebank-backend.onrender.com`).
+
+### 3. Frontend (Vercel)
+1. Sign in to [Vercel](https://vercel.com) and click **Add New...** -> **Project**.
+2. Import the repository `Priya1234232/secureBank`.
+3. Configure Project Settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `client`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. Under **Environment Variables**, add:
+   - `VITE_API_URL`: `https://securebank-backend.onrender.com/api`
+5. Note: `client/vercel.json` is already included in the repository to handle Single Page Application (SPA) client-side routing.
+6. Click **Deploy**. Your professional banking application is now live!
+
